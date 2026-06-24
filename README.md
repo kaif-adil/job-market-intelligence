@@ -5,11 +5,11 @@ An end-to-end data analytics platform analyzing 123,842 LinkedIn job postings to
 **Live Dashboard:** https://job-market-intelligence-kaif.streamlit.app/
 
 ## Key Findings
-- **Excel dominates** with 18,107 job postings — 3.5x more than Python or SQL
+- **Excel dominates** with 18,107 job postings - 3.5x more than Python or SQL
 - **Python + SQL** is the most common skill combination, appearing in 1,978 jobs together
 - **Deep Learning skills** command the highest salaries at $185K average
 - **San Francisco Bay Area** leads in salary at $160K despite lower job volume than New York
-- Only **29% of job postings** disclose salary — all salary analysis reflects this limitation
+- Only **29% of job postings** disclose salary - all salary analysis reflects this limitation
 
 ## Tech Stack
 | Layer | Tool | Why |
@@ -55,8 +55,8 @@ Streamlit Dashboard → 4 interactive pages
 
 Two parquet files forming a simple star schema:
 
-- **jobs.parquet** — one row per job posting (40K rows in deployed version, 123K full dataset)
-- **skills.parquet** — one row per skill per job (bridge table, ~63K rows)
+- **jobs.parquet** one row per job posting (40K rows in deployed version, 123K full dataset)
+- **skills.parquet** one row per skill per job (bridge table, ~63K rows)
 
 Connected by `job_id`. This enables skill frequency, salary analysis, and co-occurrence queries.
 
@@ -65,16 +65,16 @@ Connected by `job_id`. This enables skill frequency, salary analysis, and co-occ
 | Module | Job | Key Decision |
 |--------|-----|--------------|
 | `raw_loader.py` | Load CSV, select columns | Load as `dtype=str` to prevent silent type coercion |
-| `cleaner.py` | Drop nulls, dedup, fix dates | Use `errors='coerce'` — bad values become null, not crashes |
+| `cleaner.py` | Drop nulls, dedup, fix dates | Use `errors='coerce'`, bad values become null, not crashes |
 | `salary_parser.py` | Normalize salary | Filter <$10K and >$1M as data errors |
-| `skill_extractor.py` | Extract skills from descriptions | Regex with `\b` word boundaries — prevents 'R' matching 'requirements' |
+| `skill_extractor.py` | Extract skills from descriptions | Regex with `\b` word boundaries prevents 'R' matching 'requirements' |
 
 ## Data Quality Notes
 
-- 71% of job postings have no salary data — salary analysis reflects disclosed compensation only
-- 'Go' keyword removed from skill taxonomy — matched false positives like "go-getter" in non-tech roles
-- Dataset is US-centric — geographic analysis reflects US job market
-- Deployed version uses 40K row sample — full 123K dataset runs locally
+- 71% of job postings have no salary data, salary analysis reflects disclosed compensation only
+- 'Go' keyword removed from skill taxonomy, matched false positives like "go-getter" in non-tech roles
+- Dataset is US-centric, geographic analysis reflects US job market
+- Deployed version uses 40K row sample, full 123K dataset runs locally
 
 ## How to Run Locally
 
