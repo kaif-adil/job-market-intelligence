@@ -35,8 +35,34 @@ fig = px.bar(
     labels={'avg_salary': 'Average Salary (USD)', 'skill_name': 'Skill'}
 )
 
-fig.update_layout(yaxis={'categoryorder': 'total ascending'})
+fig.update_layout(yaxis={'categoryorder': 'total ascending'},height=550)
 
 st.plotly_chart(fig, use_container_width=True)
 
 st.info("💡 Deep Learning and ML skills pay 25-40% above the average. Excel pays the least despite being the most demanded skill.")
+
+st.markdown("---")
+st.subheader("💡 Salary vs Demand — The Full Picture")
+st.markdown("Each bubble is one skill. Size = how many jobs require it.")
+
+fig2 = px.scatter(
+    df,
+    x='job_count',
+    y='avg_salary',
+    size='job_count',
+    color='skill_category',
+    text='skill_name',
+    title='Skill Value Map — Demand vs Salary',
+    labels={
+        'job_count': 'Number of Jobs (Demand)',
+        'avg_salary': 'Average Salary (USD)'
+    },
+    size_max=60
+)
+
+fig2.update_traces(textposition='top center', textfont_size=10)
+fig2.update_layout(height=600)
+
+st.plotly_chart(fig2, use_container_width=True)
+
+st.info("💡 Top right = high demand AND high salary (Python, AWS) — the sweet spot. Top left = niche premium skills (Deep Learning). Bottom right = commoditized skills (Excel) — high demand but lower pay.")

@@ -39,7 +39,7 @@ fig = px.bar(
     color_continuous_scale='Blues'
 )
 
-fig.update_layout(yaxis={'categoryorder': 'total ascending'})
+fig.update_layout(yaxis={'categoryorder': 'total ascending'},height=550)
 
 st.plotly_chart(fig, use_container_width=True)
 

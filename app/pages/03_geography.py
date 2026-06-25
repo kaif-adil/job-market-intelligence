@@ -34,7 +34,10 @@ fig = px.bar(
     labels={'job_count': 'Number of Jobs', 'location': 'Location', 'avg_salary': 'Avg Salary'}
 )
 
-fig.update_layout(yaxis={'categoryorder': 'total ascending'})
+fig.update_layout(
+    yaxis={'categoryorder': 'total ascending'},
+    height=550
+)
 
 st.plotly_chart(fig, use_container_width=True)
 
