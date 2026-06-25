@@ -25,6 +25,12 @@ def load_data():
 
 df = load_data()
 
+categories = ['All'] + sorted(df['skill_category'].unique().tolist())
+selected_category = st.selectbox('Filter by skill category:', categories)
+
+if selected_category != 'All':
+    df = df[df['skill_category'] == selected_category]
+
 fig = px.bar(
     df,
     x='avg_salary',
